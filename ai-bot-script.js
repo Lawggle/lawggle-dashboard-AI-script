@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             position: fixed;
             bottom: 24px; /* Position above the button (60px button + 20px margin + 10px gap) */
             right: 20px;
-            width: 4000px;
+            width: 400px;
             height: 75%;
             border-radius: 16px;
             border: 1px solid #ccc;
