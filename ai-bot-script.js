@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+// Function to initialize the chatbot
+function initializeChatbot() {
   // More robust script tag detection
   const getScriptTag = () => {
     const scriptTags = document.getElementsByTagName("script");
@@ -162,4 +163,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     chatbotButton.classList.remove("hidden");
   });
-});
+}
+
+// Check if DOM is already loaded, otherwise wait for it
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeChatbot);
+} else {
+  // DOM is already loaded, initialize immediately
+  initializeChatbot();
+}
