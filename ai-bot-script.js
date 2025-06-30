@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const slug = scriptTag.getAttribute("slug");
   const auth = scriptTag.getAttribute("auth");
   const profilePicUrl = scriptTag.getAttribute("profile-pic-url");
-  const base_url = "https://lawgglebot.vercel.app";
+  const base_url = "https://lawggle-dashboard-ai-bot.vercel.app";
   const iframeUrl = `${base_url}/${slug}?auth=${auth}?profilePicUrl=${encodeURIComponent(
     profilePicUrl
   )}`;
