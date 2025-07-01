@@ -57,7 +57,7 @@ function initializeChatbot() {
   chatbotContainer.className = "orgo-chatbot-container";
   chatbotContainer.style.display = "none"; // Hidden by default
 
-  // Create header
+  // Create header with close button (will be positioned absolutely)
   var headerDiv = document.createElement("div");
   headerDiv.className = "orgo-chatbot-header";
 
@@ -66,14 +66,16 @@ function initializeChatbot() {
   closeButton.innerHTML = "✕";
   headerDiv.appendChild(closeButton);
 
-  // Modify chatbot container structure
-  chatbotContainer.appendChild(headerDiv);
+  // Create iframe first (full height)
   var chatbotIframe = document.createElement("iframe");
   chatbotIframe.src = iframeUrl; // Use the URL with memberstack ID
   chatbotIframe.style.width = "100%";
-  chatbotIframe.style.height = "calc(100% - 40px)"; // Adjust for header height
-  chatbotIframe.style.border = "none"; // Add this line to remove the border
+  chatbotIframe.style.height = "100%"; // Full height now
+  chatbotIframe.style.border = "none";
+
+  // Add iframe and header to container
   chatbotContainer.appendChild(chatbotIframe);
+  chatbotContainer.appendChild(headerDiv); // Header added after iframe to appear on top
   document.body.appendChild(chatbotContainer);
 
   // Add styles for the button and container
@@ -115,24 +117,37 @@ function initializeChatbot() {
             overflow: hidden;
             transition: all 0.3s ease;
             background: white;
+            position: relative; /* Make container relative for absolute positioning of header */
         }
 
         .orgo-chatbot-header {
+            position: absolute; /* Position absolutely on top of iframe */
+            top: 0;
+            right: 0;
             height: 40px;
-            background: #f5f5f5;
+            background: transparent; /* Transparent background */
             display: flex;
             justify-content: flex-end;
             align-items: center;
             padding: 0 10px;
+            z-index: 1000; /* Ensure it's above the iframe */
+            width: auto; /* Only take space needed for the close button */
         }
 
         .orgo-chatbot-close {
-            background: none;
-            border: none;
-            font-size: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for visibility */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            font-size: 16px;
             cursor: pointer;
             color: #666;
-            padding: 5px;
+            padding: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .orgo-chatbot-close:hover {
@@ -165,13 +180,25 @@ function initializeChatbot() {
             }
 
             .orgo-chatbot-header {
+                position: absolute; /* Keep absolute positioning on mobile */
+                top: 0;
+                right: 0;
                 height: 50px;
                 padding: 0 15px;
+                background: transparent; /* Keep transparent background */
+                z-index: 1000;
+                width: auto;
             }
 
             .orgo-chatbot-close {
-                font-size: 24px;
+                font-size: 18px;
                 padding: 10px;
+                width: 36px;
+                height: 36px;
+                background: rgba(255, 255, 255, 0.9); /* Maintain semi-transparent background */
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
         }
     `;
