@@ -131,8 +131,8 @@ function initializeChatbot() {
         /* Mobile specific styles */
         @media (max-width: 768px) {
             .orgo-chatbot-button {
-                bottom: 15px;
-                right: 15px;
+                bottom: 20px;
+                right: 20px;
                 width: 60px;
                 height: 60px;
             }
@@ -143,7 +143,7 @@ function initializeChatbot() {
                 left: 0;
                 top: 0;
                 width: 100%;
-                height: 100%;
+                height: 90%;
                 border-radius: 0;
                 border: none;
             }
