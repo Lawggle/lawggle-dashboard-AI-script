@@ -72,6 +72,9 @@ function initializeChatbot() {
   chatbotIframe.style.width = "100%";
   chatbotIframe.style.height = "100%"; // Full height now
   chatbotIframe.style.border = "none";
+  chatbotIframe.style.display = "block"; // Ensure proper display
+  chatbotIframe.style.borderRadius = "16px"; // Match container border radius
+  chatbotIframe.style.flex = "1"; // Take available space in flex container
 
   // Add iframe and header to container
   chatbotContainer.appendChild(chatbotIframe);
@@ -114,9 +117,11 @@ function initializeChatbot() {
             border-radius: 16px;
             border: 1px solid #ccc;
             z-index: 999;
-            overflow: hidden;
+            overflow: hidden; /* Keep hidden to maintain rounded corners */
             transition: all 0.3s ease;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
 
         .orgo-chatbot-header {
@@ -178,6 +183,9 @@ function initializeChatbot() {
                 border-radius: 0;
                 border: none;
                 z-index: 999;
+                overflow: hidden; /* Keep hidden for consistent behavior */
+                display: flex;
+                flex-direction: column;
             }
 
             .orgo-chatbot-header {
