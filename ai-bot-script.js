@@ -80,6 +80,7 @@ function initializeChatbot() {
             background: rgba(162, 195, 224, 0.2); /* Set to 20% opacity */
             border-radius: 50%; /* Added to ensure container is circular */
             overflow: hidden; /* Ensure video stays within circle */
+            border: 2px solid #92B0CA;
         }
 
         .orgo-chatbot-button.hidden {
