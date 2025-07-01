@@ -33,7 +33,7 @@ function initializeChatbot() {
   var chatbotButton = document.createElement("button");
   chatbotButton.className = "orgo-chatbot-button";
   chatbotButton.innerHTML =
-    '<img src="https://cdn.prod.website-files.com/67e360f08a15ef65d8814b41/686369111a4a2c20343eeed7_lawggle-ai-bot.png" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
+    '<video autoplay loop muted playsinline src="https://chatbotscript.vercel.app/bird_waving.mp4" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></video>';
   document.body.appendChild(chatbotButton);
 
   // Create the chatbot iframe container
@@ -68,6 +68,7 @@ function initializeChatbot() {
             bottom: 20px;
             right: 20px;
             color: white;
+            border: none;
             width: 80px;  /* Increased from 60px */
             height: 80px; /* Increased from 60px */
             cursor: pointer;
@@ -76,8 +77,7 @@ function initializeChatbot() {
             justify-content: center;
             z-index: 1000;
             padding: 0;
-            background: #A2C3E033;
-            border: 2px solid #39444E;
+            background: rgba(162, 195, 224, 0.2); /* Set to 20% opacity */
             border-radius: 50%; /* Added to ensure container is circular */
             overflow: hidden; /* Ensure video stays within circle */
         }
@@ -93,9 +93,11 @@ function initializeChatbot() {
             width: 425px;
             height: 75%;
             border-radius: 16px;
+            border: 1px solid #ccc;
             z-index: 999;
             overflow: hidden;
             transition: all 0.3s ease;
+            background: white;
         }
 
         .orgo-chatbot-header {
