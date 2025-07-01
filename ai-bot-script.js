@@ -169,12 +169,12 @@ function initializeChatbot() {
 
             .orgo-chatbot-container {
                 position: fixed;
-                top: 0;
+                top: 60px; /* Default safe margin for navbar */
                 left: 0;
                 right: 0;
                 bottom: 0;
                 width: 100%;
-                height: 100%;
+                height: calc(100% - 60px);
                 border-radius: 0;
                 border: none;
                 z-index: 999;
@@ -210,10 +210,67 @@ function initializeChatbot() {
     return window.innerWidth <= 768;
   };
 
+  // Function to detect navbar height and adjust container
+  const adjustForNavbar = () => {
+    if (!isMobileDevice()) return; // Only adjust on mobile
+
+    // Primary navbar selector for your specific site
+    const primaryNavbarSelector = ".shell_sidebar-wrapper-2";
+
+    let navbarHeight = 0;
+
+    // Try to find the specific navbar
+    const primaryNavbar = document.querySelector(primaryNavbarSelector);
+    if (primaryNavbar) {
+      const rect = primaryNavbar.getBoundingClientRect();
+
+      // Check if it's positioned at or near the top
+      if (rect.top <= 20) {
+        navbarHeight = rect.bottom;
+        console.log(
+          `Found navbar with class ${primaryNavbarSelector}, height: ${navbarHeight}px`
+        );
+      }
+    }
+
+    // Apply the navbar offset to mobile container
+    if (navbarHeight > 0) {
+      const style = document.querySelector("style");
+      const currentCSS = style.innerHTML;
+
+      // Replace the mobile container styles with navbar offset
+      const updatedCSS = currentCSS.replace(
+        /\.orgo-chatbot-container\s*{[^}]*position:\s*fixed;[^}]*top:\s*60px;[^}]*}/,
+        `.orgo-chatbot-container {
+                position: fixed;
+                top: ${navbarHeight}px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: calc(100% - ${navbarHeight}px);
+                border-radius: 0;
+                border: none;
+                z-index: 999;
+            }`
+      );
+
+      style.innerHTML = updatedCSS;
+      console.log(
+        `Adjusted chatbot container for navbar height: ${navbarHeight}px`
+      );
+    } else {
+      console.log("No navbar detected, using default positioning");
+    }
+  };
+
   // Toggle chatbot visibility on button click
   chatbotButton.addEventListener("click", function () {
     if (chatbotContainer.style.display === "none") {
       chatbotContainer.style.display = "";
+
+      // Adjust for navbar on mobile
+      adjustForNavbar();
 
       // Only disable scrolling on mobile devices
       if (isMobileDevice()) {
