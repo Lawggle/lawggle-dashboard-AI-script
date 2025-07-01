@@ -117,7 +117,6 @@ function initializeChatbot() {
             overflow: hidden;
             transition: all 0.3s ease;
             background: white;
-            position: relative; /* Make container relative for absolute positioning of header */
         }
 
         .orgo-chatbot-header {
