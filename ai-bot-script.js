@@ -121,7 +121,7 @@ function initializeChatbot() {
 
         .orgo-chatbot-header {
             position: absolute; /* Position absolutely on top of iframe */
-            top: 0;
+            top: 10px;
             right: 0;
             height: 40px;
             background: transparent; /* Transparent background */
@@ -168,24 +168,26 @@ function initializeChatbot() {
             }
 
             .orgo-chatbot-container {
-                bottom: 0;
-                right: 0;
+                position: fixed;
+                top: 0;
                 left: 0;
-                top: 70px;
+                right: 0;
+                bottom: 0;
                 width: 100%;
-                height: calc(100vh - 70px); /* Use viewport height minus top offset */
+                height: 100%;
                 border-radius: 0;
                 border: none;
+                z-index: 999;
             }
 
             .orgo-chatbot-header {
                 position: absolute; /* Keep absolute positioning on mobile */
-                top: 0;
-                right: 0;
+                top: 10px; /* Add some margin from the very top */
+                right: 10px; /* Add some margin from the edge */
                 height: 50px;
-                padding: 0 15px;
+                padding: 0;
                 background: transparent; /* Keep transparent background */
-                z-index: 1000;
+                z-index: 1001; /* Higher z-index to ensure it's always on top */
                 width: auto;
             }
 
