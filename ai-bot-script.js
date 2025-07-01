@@ -123,14 +123,39 @@ function initializeChatbot() {
             color: #333;
         }
 
-            
-            .orgo-chatbot-button.hidden {
-                display: none;
+        /* Add a class to handle mobile overflow */
+        body.chatbot-open-mobile {
+            overflow: hidden;
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 768px) {
+            .orgo-chatbot-button {
+                bottom: 15px;
+                right: 15px;
+                width: 60px;
+                height: 60px;
             }
-            
-            /* Add a class to handle mobile overflow */
-            body.chatbot-open-mobile {
-                overflow: hidden;
+
+            .orgo-chatbot-container {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                border: none;
+            }
+
+            .orgo-chatbot-header {
+                height: 50px;
+                padding: 0 15px;
+            }
+
+            .orgo-chatbot-close {
+                font-size: 24px;
+                padding: 10px;
             }
         }
     `;
