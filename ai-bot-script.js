@@ -90,8 +90,8 @@ function initializeChatbot() {
             position: fixed;
             bottom: 24px; /* Position above the button (60px button + 20px margin + 10px gap) */
             right: 20px;
-            width: 475px;
-            height: 85%;
+            width: 425px;
+            height: 75%;
             border-radius: 16px;
             border: 1px solid #ccc;
             z-index: 999;
