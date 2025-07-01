@@ -173,7 +173,7 @@ function initializeChatbot() {
                 left: 0;
                 top: 70px;
                 width: 100%;
-                height: 100%;
+                height: calc(100vh - 70px); /* Use viewport height minus top offset */
                 border-radius: 0;
                 border: none;
             }
