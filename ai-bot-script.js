@@ -141,7 +141,7 @@ function initializeChatbot() {
                 bottom: 0;
                 right: 0;
                 left: 0;
-                top: 0;
+                top: 20px;
                 width: 100%;
                 height: 90%;
                 border-radius: 0;
