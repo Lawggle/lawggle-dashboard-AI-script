@@ -33,7 +33,7 @@ function initializeChatbot() {
   var chatbotButton = document.createElement("button");
   chatbotButton.className = "orgo-chatbot-button";
   chatbotButton.innerHTML =
-    '<video autoplay loop muted playsinline src="https://chatbotscript.vercel.app/bird_waving.mp4" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></video>';
+    '<img src="https://cdn.prod.website-files.com/67e360f08a15ef65d8814b41/686369111a4a2c20343eeed7_lawggle-ai-bot.png" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
   document.body.appendChild(chatbotButton);
 
   // Create the chatbot iframe container
