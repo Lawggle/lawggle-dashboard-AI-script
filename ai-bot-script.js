@@ -68,7 +68,6 @@ function initializeChatbot() {
             bottom: 20px;
             right: 20px;
             color: white;
-            border: none;
             width: 80px;  /* Increased from 60px */
             height: 80px; /* Increased from 60px */
             cursor: pointer;
@@ -77,7 +76,8 @@ function initializeChatbot() {
             justify-content: center;
             z-index: 1000;
             padding: 0;
-            background: none; /* Remove background */
+            background: #A2C3E033;
+            border: 2px solid #39444E;
             border-radius: 50%; /* Added to ensure container is circular */
             overflow: hidden; /* Ensure video stays within circle */
         }
@@ -93,11 +93,9 @@ function initializeChatbot() {
             width: 425px;
             height: 75%;
             border-radius: 16px;
-            border: 1px solid #ccc;
             z-index: 999;
             overflow: hidden;
             transition: all 0.3s ease;
-            background: white;
         }
 
         .orgo-chatbot-header {
