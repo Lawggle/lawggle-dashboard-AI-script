@@ -1,3 +1,23 @@
+// Global variable to store memberstack ID
+let memberstackId = "";
+
+// Function to get memberstack ID
+async function getMemberstackId() {
+  try {
+    if (window.$memberstackDom) {
+      const { data: member } = await window.$memberstackDom.getCurrentMember();
+      if (member) {
+        memberstackId = member.id;
+        console.log("Member id:", memberstackId);
+      } else {
+        console.log("Not logged in");
+      }
+    }
+  } catch (error) {
+    console.log("Error getting memberstack member:", error);
+  }
+}
+
 // Function to initialize the chatbot
 function initializeChatbot() {
   // More robust script tag detection
@@ -21,13 +41,9 @@ function initializeChatbot() {
 
   const slug = scriptTag.getAttribute("slug");
   const auth = scriptTag.getAttribute("auth");
-  const profilePicUrl = scriptTag.getAttribute("profile-pic-url");
+
   const base_url = "https://lawggle-dashboard-ai-bot.vercel.app";
-  const iframeUrl = profilePicUrl
-    ? `${base_url}/${slug}?auth=${auth}&profilePicUrl=${encodeURIComponent(
-        profilePicUrl
-      )}`
-    : `${base_url}/${slug}?auth=${auth}`;
+  const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}`;
 
   // Create the chatbot button
   var chatbotButton = document.createElement("button");
@@ -53,7 +69,7 @@ function initializeChatbot() {
   // Modify chatbot container structure
   chatbotContainer.appendChild(headerDiv);
   var chatbotIframe = document.createElement("iframe");
-  chatbotIframe.src = iframeUrl; // Use dynamic URL
+  chatbotIframe.src = iframeUrl; // Use the URL with memberstack ID
   chatbotIframe.style.width = "100%";
   chatbotIframe.style.height = "calc(100% - 40px)"; // Adjust for header height
   chatbotIframe.style.border = "none"; // Add this line to remove the border
@@ -193,8 +209,13 @@ function initializeChatbot() {
 
 // Check if DOM is already loaded, otherwise wait for it
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeChatbot);
+  document.addEventListener("DOMContentLoaded", async () => {
+    await getMemberstackId();
+    initializeChatbot();
+  });
 } else {
-  // DOM is already loaded, initialize immediately
-  initializeChatbot();
+  // DOM is already loaded, get memberstack ID then initialize
+  getMemberstackId().then(() => {
+    initializeChatbot();
+  });
 }
