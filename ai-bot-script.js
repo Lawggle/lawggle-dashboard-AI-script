@@ -55,7 +55,7 @@ function initializeChatbot() {
   // Create the chatbot iframe container
   var chatbotContainer = document.createElement("div");
   chatbotContainer.className = "orgo-chatbot-container";
-  chatbotContainer.style.display = "none"; // Hidden by default
+  // No longer setting display: none, using CSS animations instead
 
   // Create header with close button (will be positioned absolutely)
   var headerDiv = document.createElement("div");
@@ -102,10 +102,25 @@ function initializeChatbot() {
             border-radius: 50%; /* Added to ensure container is circular */
             overflow: hidden; /* Ensure video stays within circle */
             border: 2px solid #92B0CA;
+            /* Animation properties */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+        }
+
+        .orgo-chatbot-button:hover {
+            transform: scale(1.05);
+            background: rgba(162, 195, 224, 0.3);
+            box-shadow: 0 8px 25px rgba(146, 176, 202, 0.3);
+        }
+
+        .orgo-chatbot-button:active {
+            transform: scale(0.95);
         }
 
         .orgo-chatbot-button.hidden {
-            display: none;
+            transform: scale(0);
+            opacity: 0;
+            visibility: hidden;
         }
 
         .orgo-chatbot-container {
@@ -118,10 +133,21 @@ function initializeChatbot() {
             border: 1px solid #ccc;
             z-index: 999;
             overflow: hidden; /* Keep hidden to maintain rounded corners */
-            transition: all 0.3s ease;
             background: white;
             display: flex;
             flex-direction: column;
+            /* Animation properties */
+            transform: translateY(100%) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .orgo-chatbot-container.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
         }
 
         .orgo-chatbot-header {
@@ -152,10 +178,20 @@ function initializeChatbot() {
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Animation properties */
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
         }
 
         .orgo-chatbot-close:hover {
             color: #333;
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .orgo-chatbot-close:active {
+            transform: scale(0.95);
         }
 
         /* Add a class to handle mobile overflow */
@@ -186,6 +222,17 @@ function initializeChatbot() {
                 overflow: hidden; /* Keep hidden for consistent behavior */
                 display: flex;
                 flex-direction: column;
+                /* Mobile-specific animations */
+                transform: translateY(100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            .orgo-chatbot-container.show {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
 
             .orgo-chatbot-header {
@@ -248,8 +295,8 @@ function initializeChatbot() {
 
       // Replace the mobile container styles with navbar offset
       const updatedCSS = currentCSS.replace(
-        /\.orgo-chatbot-container\s*{[^}]*position:\s*fixed;[^}]*top:\s*60px;[^}]*}/,
-        `.orgo-chatbot-container {
+        /(@media \(max-width: 768px\) \{[\s\S]*?)\.orgo-chatbot-container\s*\{[^}]*position:\s*fixed;[^}]*top:\s*60px;[^}]*\}/,
+        `$1.orgo-chatbot-container {
                 position: fixed;
                 top: ${navbarHeight}px;
                 left: 0;
@@ -260,6 +307,13 @@ function initializeChatbot() {
                 border-radius: 0;
                 border: none;
                 z-index: 999;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transform: translateY(100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             }`
       );
 
@@ -274,8 +328,9 @@ function initializeChatbot() {
 
   // Toggle chatbot visibility on button click
   chatbotButton.addEventListener("click", function () {
-    if (chatbotContainer.style.display === "none") {
-      chatbotContainer.style.display = "";
+    if (!chatbotContainer.classList.contains("show")) {
+      // Show the chatbot with animation
+      chatbotContainer.classList.add("show");
 
       // Adjust for navbar on mobile
       adjustForNavbar();
@@ -285,18 +340,23 @@ function initializeChatbot() {
         document.body.classList.add("chatbot-open-mobile");
       }
 
+      // Animate button out
       chatbotButton.classList.add("hidden");
     }
   });
 
   // Update close button functionality
   closeButton.addEventListener("click", function () {
-    chatbotContainer.style.display = "none";
+    // Hide the chatbot with animation
+    chatbotContainer.classList.remove("show");
 
     // Remove the mobile class in any case
     document.body.classList.remove("chatbot-open-mobile");
 
-    chatbotButton.classList.remove("hidden");
+    // Show button with animation after a small delay
+    setTimeout(() => {
+      chatbotButton.classList.remove("hidden");
+    }, 100);
   });
 }
 
