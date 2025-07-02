@@ -75,6 +75,7 @@ function initializeChatbot() {
   chatbotIframe.style.display = "block"; // Ensure proper display
   chatbotIframe.style.borderRadius = "16px"; // Match container border radius
   chatbotIframe.style.flex = "1"; // Take available space in flex container
+  chatbotIframe.allow = "clipboard-write"; // Enable clipboard write permissions
 
   // Add iframe and header to container
   chatbotContainer.appendChild(chatbotIframe);
