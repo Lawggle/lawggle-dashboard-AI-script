@@ -1,7 +1,7 @@
 // Global variable to store memberstack ID
 let memberstackId = "";
 
-// Function to get memberstack ID
+// Function to get memberstack ID and validate membership
 async function getMemberstackId() {
   try {
     if (window.$memberstackDom) {
@@ -22,20 +22,27 @@ async function getMemberstackId() {
           ];
 
           if (!advancedMembershipPlanIds.includes(membershipPlanId)) {
-            return;
+            console.log(
+              "User does not have an advanced plan. Chatbot will not be initialized."
+            );
+            return false; // Return false to indicate no advanced plan
           }
+          return true; // Return true to indicate advanced plan found
         } else {
           console.warn(
             "Member is logged in but has no active membership plan."
           );
-          return;
+          return false;
         }
       } else {
         console.log("Not logged in");
+        return false;
       }
     }
+    return false; // Return false if $memberstackDom is not available
   } catch (error) {
     console.log("Error getting memberstack member:", error);
+    return false;
   }
 }
 
@@ -386,12 +393,16 @@ function initializeChatbot() {
 // Check if DOM is already loaded, otherwise wait for it
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", async () => {
-    await getMemberstackId();
-    initializeChatbot();
+    const hasAdvancedPlan = await getMemberstackId();
+    if (hasAdvancedPlan) {
+      initializeChatbot();
+    }
   });
 } else {
   // DOM is already loaded, get memberstack ID then initialize
-  getMemberstackId().then(() => {
-    initializeChatbot();
+  getMemberstackId().then((hasAdvancedPlan) => {
+    if (hasAdvancedPlan) {
+      initializeChatbot();
+    }
   });
 }
