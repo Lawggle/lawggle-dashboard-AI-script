@@ -8,7 +8,28 @@ async function getMemberstackId() {
       const { data: member } = await window.$memberstackDom.getCurrentMember();
       if (member) {
         memberstackId = member.id;
+        const membershipPlan = member.planConnections[0];
         console.log("Member id:", memberstackId);
+        console.log("Current membership plan:", membershipPlan);
+
+        if (membershipPlan) {
+          const membershipPlanId = membershipPlan.planId;
+          console.log("Current membership ID:", membershipPlanId);
+
+          const advancedMembershipPlanIds = [
+            "pln_lawggle-advanced-v2-r74e0sgz",
+            "pln_lawggle-advanced-v2-a6t0erf",
+          ];
+
+          if (!advancedMembershipPlanIds.includes(membershipPlanId)) {
+            return;
+          }
+        } else {
+          console.warn(
+            "Member is logged in but has no active membership plan."
+          );
+          return;
+        }
       } else {
         console.log("Not logged in");
       }
@@ -48,7 +69,6 @@ function initializeChatbot() {
   // Create the chatbot button
   var chatbotButton = document.createElement("button");
   chatbotButton.className = "orgo-chatbot-button";
-  chatbotButton.setAttribute("data-ms-secure-html", "lawggle-ai-bot");
 
   chatbotButton.innerHTML =
     '<img src="https://cdn.prod.website-files.com/67e360f08a15ef65d8814b41/686369111a4a2c20343eeed7_lawggle-ai-bot.png" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
