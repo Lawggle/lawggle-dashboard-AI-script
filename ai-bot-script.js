@@ -71,7 +71,18 @@ function initializeChatbot() {
   const auth = scriptTag.getAttribute("auth");
 
   const base_url = "https://lawggle-dashboard-ai-bot.vercel.app";
-  const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}`;
+
+  // More robust live environment detection
+  const isLive = (() => {
+    const hostname = window.location?.hostname?.toLowerCase();
+    if (!hostname) return false;
+
+    // List of production domains
+    const liveDomains = ["www.lawggle.com", "lawggle.com"];
+    return liveDomains.includes(hostname);
+  })();
+
+  const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}&live=${isLive}`;
 
   // Create the chatbot button
   var chatbotButton = document.createElement("button");
