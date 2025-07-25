@@ -82,7 +82,7 @@ function initializeChatbot() {
     return liveDomains.includes(hostname);
   })();
 
-  const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}&live=${isLive}`;
+  const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}&isLive=${isLive}`;
 
   // Create the chatbot button
   var chatbotButton = document.createElement("button");
@@ -405,16 +405,12 @@ function initializeChatbot() {
 // Check if DOM is already loaded, otherwise wait for it
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", async () => {
-    const hasAdvancedPlan = await getMemberstackId();
-    if (hasAdvancedPlan) {
-      initializeChatbot();
-    }
+    await getMemberstackId(); // Still get memberstack ID for the iframe URL
+    initializeChatbot(); // Always initialize chatbot
   });
 } else {
   // DOM is already loaded, get memberstack ID then initialize
-  getMemberstackId().then((hasAdvancedPlan) => {
-    if (hasAdvancedPlan) {
-      initializeChatbot();
-    }
+  getMemberstackId().then(() => {
+    initializeChatbot(); // Always initialize chatbot
   });
 }
