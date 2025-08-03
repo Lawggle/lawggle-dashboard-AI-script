@@ -246,8 +246,8 @@ function initializeChatbot() {
             .orgo-chatbot-button {
                 bottom: 20px;
                 right: 20px;
-                width: 60px;
-                height: 60px;
+                width: 90px;
+                height: 90px;
             }
 
             .orgo-chatbot-container {
