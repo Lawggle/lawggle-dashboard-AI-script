@@ -141,7 +141,7 @@ function initializeChatbot() {
             z-index: 1000;
             padding: 0;
             background: rgba(162, 195, 224, 0.2); /* Set to 20% opacity */
-            clip-path: circle(50% at center);
+            border-radius: 50%; /* Added to ensure container is circular */
             overflow: hidden; /* Ensure video stays within circle */
             border: 2px solid #92B0CA;
             /* Animation properties */
