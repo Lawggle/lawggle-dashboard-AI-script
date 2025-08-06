@@ -84,13 +84,26 @@ function initializeChatbot() {
 
   const iframeUrl = `${base_url}/${slug}?auth=${auth}&memberstackid=${memberstackId}&isLive=${isLive}`;
 
-  // Create the chatbot button
-  var chatbotButton = document.createElement("button");
-  chatbotButton.className = "orgo-chatbot-button";
+  // Create the chatbot button using SVG circle
+  var chatbotButton = document.createElement("div");
+  chatbotButton.className = "orgo-chatbot-button-container";
   chatbotButton.id = "ai-bot-btn";
 
-  chatbotButton.innerHTML =
-    '<img src="https://cdn.prod.website-files.com/67e360f08a15ef65d8814b41/686369111a4a2c20343eeed7_lawggle-ai-bot.png" alt="Chatbot Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
+  chatbotButton.innerHTML = `
+    <svg width="80" height="80" class="orgo-chatbot-button-svg">
+      <defs>
+        <pattern id="chatbot-image" patternUnits="userSpaceOnUse" width="80" height="80">
+          <image href="https://cdn.prod.website-files.com/67e360f08a15ef65d8814b41/686369111a4a2c20343eeed7_lawggle-ai-bot.png" 
+                 x="0" y="0" width="80" height="80" />
+        </pattern>
+      </defs>
+      <circle cx="40" cy="40" r="38" 
+              fill="url(#chatbot-image)" 
+              stroke="#92B0CA" 
+              stroke-width="2"
+              class="orgo-chatbot-circle" />
+    </svg>
+  `;
   document.body.appendChild(chatbotButton);
 
   // Create the chatbot iframe container
@@ -126,46 +139,48 @@ function initializeChatbot() {
   // Add styles for the button and container
   var style = document.createElement("style");
   style.innerHTML = `
-        .orgo-chatbot-button {
+        .orgo-chatbot-button-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            color: white;
-            border: none;
-            width: 80px;  /* Increased from 60px */
-            height: 80px; /* Increased from 60px */
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             z-index: 1000;
-            padding: 0;
-            background: rgba(162, 195, 224, 0.2); /* Set to 20% opacity */
-            border-radius: 50%; /* Makes it visually circular */
-            overflow: hidden; /* Ensure content stays within circle */
-            border: 2px solid #92B0CA;
             /* Animation properties */
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(1);
-            /* Ensure perfect circle */
-            aspect-ratio: 1 / 1; /* Guarantees equal width/height */
-            box-sizing: border-box; /* Include border in dimensions */
         }
 
-        .orgo-chatbot-button:hover {
+        .orgo-chatbot-button-container:hover {
             transform: scale(1.05);
-            background: rgba(162, 195, 224, 0.3);
-            box-shadow: 0 8px 25px rgba(146, 176, 202, 0.3);
         }
 
-        .orgo-chatbot-button:active {
+        .orgo-chatbot-button-container:active {
             transform: scale(0.95);
         }
 
-        .orgo-chatbot-button.hidden {
+        .orgo-chatbot-button-container.hidden {
             transform: scale(0);
             opacity: 0;
             visibility: hidden;
+        }
+
+        .orgo-chatbot-button-svg {
+            display: block;
+            filter: drop-shadow(0 8px 25px rgba(146, 176, 202, 0.3));
+            transition: filter 0.3s ease;
+        }
+
+        .orgo-chatbot-button-container:hover .orgo-chatbot-button-svg {
+            filter: drop-shadow(0 12px 35px rgba(146, 176, 202, 0.4));
+        }
+
+        .orgo-chatbot-circle {
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .orgo-chatbot-button-container:hover .orgo-chatbot-circle {
+            opacity: 1;
         }
 
         .orgo-chatbot-container {
@@ -246,9 +261,29 @@ function initializeChatbot() {
 
         /* Mobile specific styles */
         @media (max-width: 768px) {
-            .orgo-chatbot-button {
+            .orgo-chatbot-button-container {
                 bottom: 20px;
                 right: 20px;
+            }
+            
+            .orgo-chatbot-button-svg {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .orgo-chatbot-circle {
+                cx: 30;
+                cy: 30;
+                r: 28;
+            }
+            
+            /* Update the pattern for mobile */
+            #chatbot-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            #chatbot-image image {
                 width: 60px;
                 height: 60px;
             }
