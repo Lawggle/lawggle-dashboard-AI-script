@@ -141,15 +141,12 @@ function initializeChatbot() {
             z-index: 1000;
             padding: 0;
             background: rgba(162, 195, 224, 0.2); /* Set to 20% opacity */
-            border-radius: 50%; /* Makes it visually circular */
-            overflow: hidden; /* Ensure content stays within circle */
+            border-radius: 50%; /* Added to ensure container is circular */
+            overflow: hidden; /* Ensure video stays within circle */
             border: 2px solid #92B0CA;
             /* Animation properties */
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(1);
-            /* Ensure perfect circle */
-            aspect-ratio: 1 / 1; /* Guarantees equal width/height */
-            box-sizing: border-box; /* Include border in dimensions */
         }
 
         .orgo-chatbot-button:hover {
